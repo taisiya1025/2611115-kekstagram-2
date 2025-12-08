@@ -1,7 +1,11 @@
-
-
 const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+
+const clear = () => {
+  picturesContainer.querySelectorAll('.picture').forEach((item) => {
+    item.remove();
+  });
+};
 
 const createThumbnail = (photo) => {
   const thumbnail = pictureTemplate.cloneNode(true);
@@ -15,6 +19,7 @@ const createThumbnail = (photo) => {
   return thumbnail;
 };
 const renderThumbnails = (photos) => {
+  clear();
   const fragment = document.createDocumentFragment();
   photos.forEach((photo) => {
     const thumbnail = createThumbnail(photo);
