@@ -5,6 +5,9 @@ import { showErrorMessage } from './util.js';
 import { initFormHandlers } from './form.js';
 import { initFilters } from './filter.js';
 
+getData((photos) => {
+  initFilters(photos);
+});
 const loadPhotos = async () => {
   try {
     const photos = await getData();

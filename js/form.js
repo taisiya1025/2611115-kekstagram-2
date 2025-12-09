@@ -10,6 +10,8 @@ const commentInput = form.querySelector('.text__description');
 const fileInput = form.querySelector('.img-upload__input');
 const overlay = document.querySelector('.img-upload__overlay');
 const submitButton = form.querySelector('.img-upload__submit');
+const imagePreview = document.querySelector('.img-upload__preview img');
+const miniPreviews = document.querySelectorAll('.effects__preview');
 
 const showMessage = (templateId) => {
   const template = document.querySelector(`#${templateId}`).content.querySelector(`.${templateId}`);
@@ -65,8 +67,18 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Опубликовать';
 };
 
+const renderPreview = () => {
+  const file = fileInput.files[0];
+  const fileUrl = URL.createObjectURL(file);
+  imagePreview.src = fileUrl;
+  miniPreviews.forEach((span) => {
+    span.style.backgroundImage = `url(${fileUrl})`;
+  });
+};
+
 const onFileInputChange = () => {
   openForm();
+  renderPreview();
 };
 
 const onCloseButtonClick = () => {
@@ -107,10 +119,12 @@ const onFormSubmit = async (evt) => {
 
 const initFormHandlers = () => {
   fileInput.addEventListener('change', onFileInputChange);
-  cancelButton.addEventListener('click', onCloseButtonClick);
   document.addEventListener('keydown', onFormKeydown);
-  form.addEventListener('submit', onFormSubmit);
+
 };
+
+cancelButton.addEventListener('click', onCloseButtonClick);
+form.addEventListener('submit', onFormSubmit);
 
 export { initFormHandlers };
 
