@@ -1,5 +1,5 @@
 import { renderThumbnails } from './thumbnails.js';
-import { initFilters } from './filters.js';
+import { initFilters } from './filter.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const fileInput = uploadForm.querySelector('.img-upload__input');
