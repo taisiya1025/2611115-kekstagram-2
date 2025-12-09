@@ -4,7 +4,12 @@ import { getData } from './fetch.js';
 import { showErrorMessage } from './util.js';
 import { initFormHandlers } from './form.js';
 import { initFilters } from './filter.js';
+import { initUploadPhoto } from './photo.js';
 
+getData((photos) => {
+  initUploadPhoto(photos);
+  initFilters(photos);
+});
 const loadPhotos = async () => {
   try {
     const photos = await getData();

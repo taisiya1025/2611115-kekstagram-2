@@ -1,24 +1,24 @@
 import { renderThumbnails } from './thumbnails.js';
 import { debounce } from './util.js';
-
+import { getCurrentPhotos, updateCurrentPhotos} from './photo.js';
 const DEBOUNCE_DELAY = 500;
 const RANDOM_PHOTOS_COUNT = 10;
 
 const filtersContainer = document.querySelector('.img-filters');
 
-let localPhotos;
 const debouncedApplyFilter = debounce(renderThumbnails, DEBOUNCE_DELAY);
 
 export const initFilters = (pictures) => {
-  localPhotos = [...pictures];
+  updateCurrentPhotos([...pictures]);
   filtersContainer.classList.remove('img-filters--inactive');
 };
 
 const applyFilter = {
-  ['filter-random']: () => [...localPhotos].sort(() => Math.random() - 0.5).slice(0, RANDOM_PHOTOS_COUNT),
-  ['filter-discussed']: () => [...localPhotos].sort((a, b) => b.comments.length - a.comments.length),
-  ['filter-default']: () => localPhotos
+  ['filter-random']: () => [...getCurrentPhotos()].sort(() => Math.random() - 0.5).slice(0, RANDOM_PHOTOS_COUNT),
+  ['filter-discussed']: () => [...getCurrentPhotos()].sort((a, b) => b.comments.length - a.comments.length),
+  ['filter-default']: () => getCurrentPhotos()
 };
+
 
 const onFilterClick = (evt) => {
   const clickedButton = evt.target;
