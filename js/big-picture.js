@@ -1,3 +1,5 @@
+const COMMENTS_PER_PORTION = 5;
+
 const body = document.body;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
@@ -9,10 +11,11 @@ const commentsLoader = bigPicture.querySelector('.comments-loader');
 const cancelButton = bigPicture.querySelector('.big-picture__cancel');
 const picturesContainer = document.querySelector('.pictures');
 const commentTemplate = document.querySelector('#comment-template').content.querySelector('.social__comment');
+const socialCommentShownCount = bigPicture.querySelector('.social__comment-shown-count');
+const socialCommentTotalCount = bigPicture.querySelector('.social__comment-total-count');
 
 let currentComments = [];
 let commentsShown = 0;
-const COMMENTS_PER_PORTION = 5;
 
 const createComment = (comment) => {
   const commentElement = commentTemplate.cloneNode(true);
@@ -33,8 +36,7 @@ const renderComments = () => {
     fragment.appendChild(commentElement);
   });
   socialComments.appendChild(fragment);
-  const socialCommentShownCount = bigPicture.querySelector('.social__comment-shown-count');
-  const socialCommentTotalCount = bigPicture.querySelector('.social__comment-total-count');
+
   socialCommentShownCount.textContent = commentsShown;
   socialCommentTotalCount.textContent = currentComments.length;
   if (commentsShown >= currentComments.length || currentComments.length <= COMMENTS_PER_PORTION) {
